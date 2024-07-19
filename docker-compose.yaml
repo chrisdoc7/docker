@@ -1,11 +1,35 @@
-version: "3.9"
-
 services:
   api:
-    # Add configuration here
+    build:
+      context: ./backend/
+      dockerfile: ./deployment/Dockerfile
+      args:
+        - HTTP_PORT=4001
+        - POSTGRES_HOST=database
+        - POSTGRES_PORT=5432
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=secret
+        - POSTGRES_DATABASE=postgres
+    ports:
+      - "4001:4001"
 
   web:
-    # Add configuration here
+    build:
+      context: ./frontend/
+      dockerfile: ./deployment/Dockerfile
+      args:
+        - VITE_BACKEND_URL=http://localhost:4001
+    ports:
+      - "80:80"
 
   database:
-    # Add configuration here
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_USER=postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres:/var/lib/postgresql/data

@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Prepare environment') {
       steps {
-        sh 'node -v || apk add --update node'
+        sh 'node -v || apk add --update nodejs'
         sh 'npm -v || apk add --update npm'
       }
     }

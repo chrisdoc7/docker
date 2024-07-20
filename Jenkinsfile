@@ -11,6 +11,7 @@ pipeline {
     stage('Install dependences backend') {
       steps {
         sh 'cd ./backend'
+        sh 'ls'
         sh 'npm install'
       }
     }

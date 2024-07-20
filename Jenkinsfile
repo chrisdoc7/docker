@@ -3,8 +3,8 @@ pipeline {
   stages {
     stage('Prepare environment') {
       steps {
-        sh 'node -v || apt install nodejs'
-        sh 'npm -v || apt install npm'
+        sh 'node -v || apt install -y nodejs'
+        sh 'npm -v || apt install -y npm'
       }
     }
 
